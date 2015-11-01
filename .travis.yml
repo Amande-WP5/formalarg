@@ -6,4 +6,4 @@ install:
 after_success:
   - codecov
 script:
-  - coverage run -m unittest discover -s tests/ -v
+  - coverage run --omit="*/test*" -m unittest discover -s tests/ -v
