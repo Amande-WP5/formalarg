@@ -1,1 +1,1 @@
-# formalarg
+# formalarg [![Code Climate](https://codeclimate.com/github/Amande-WP5/formalarg/badges/gpa.svg)](https://codeclimate.com/github/Amande-WP5/formalarg) [![codecov.io](https://codecov.io/github/Amande-WP5/formalarg/coverage.svg?branch=master)](https://codecov.io/github/Amande-WP5/formalarg?branch=master)
