@@ -1,6 +1,8 @@
 from enum import Enum
 from collections import defaultdict
 
+from . import Relation, RelationType
+
 
 class FallacyType(Enum):
     BeggingTheQuestion         = 1
@@ -27,21 +29,25 @@ class FallacyType(Enum):
     AppealToAuthority          = 22
 
 class Premise:
-    def __init__(self, id, text="", parents=None, sources=None):
+    def __init__(self, id, text="", sources=None):
         self.id        = id
-        self.parents   = parents or list()
+        self.relations = list()
         self.text      = text
         self.sources   = sources or list()
         self.fallacies = defaultdict(int)
 
+    def add_relations(self, *relations):
+        self.relations += [Relation(self, par, reltype) for par, reltype in relations]
+
     def supports(self):
-        return [r for r in self.parents if r.type == RelationType.support]
+        return [r.relto for r in self.relations if r.type == RelationType.support]
 
     def objects(self):
-        return [r for r in self.parents if r.type == RelationType.objection]
+        return [r.relto for r in self.relations if r.type == RelationType.objection]
 
     def add_fallacies(self, *fallacies):
-        self.fallacies += fallacies
+        for f in fallacies:
+            self.fallacies[f] += 1
 
     def fallacies_count(self):
-        return len(self.fallacies)
+        return sum(self.fallacies.values())
