@@ -5,9 +5,11 @@ from formalarg import Premise, Relation, RelationType, FallacyType
 
 
 class TestPremise(unittest.TestCase):
+    @unittest.skip("Not implemented")
     def test_init(self):
         self.fail("Not Implemented")
 
+    @unittest.skip("Not implemented")
     def test_add_relations(self):
         self.fail("Not Implemented")
 
