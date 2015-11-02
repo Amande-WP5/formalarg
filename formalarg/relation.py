@@ -13,13 +13,13 @@ class Relation:
         self.relfrom    = relfrom
         self.relto      = relto
         self.supporters = 0
-        self.opposants  = 0
+        self.opponents  = 0
 
     def add_supporters(self, count):
         self.supporters += count
 
-    def add_opposants(self, count):
-        self.opposants += count
+    def add_opponents(self, count):
+        self.opponents += count
 
     def support_difference(self):
-        return self.supporters - self.opposants
+        return self.supporters - self.opponents
