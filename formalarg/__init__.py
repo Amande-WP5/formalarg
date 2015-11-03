@@ -4,3 +4,5 @@ from .relation import RelationType
 from .relation import Relation
 from .premise import FallacyType
 from .premise import Premise
+from .graph import Graph
+from .extension import Extension
