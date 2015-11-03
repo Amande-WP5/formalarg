@@ -17,4 +17,7 @@ class Extension:
     def is_admissible(self, relations):
         if not self.is_conflict_free(relations):
             return False
-        return any(arg for arg in self.arguments if not arg.is_acceptable(self, relations))
+        return not any(arg for arg in self.arguments if not arg.is_acceptable(self, relations))
+
+    def __str__(self):
+        return ', '.join(str(arg) for arg in self.arguments)
