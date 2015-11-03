@@ -88,5 +88,31 @@ class TestPremise(unittest.TestCase):
         self.assertEqual(premise.fallacies_count(), 3)
         self.assertEqual(premise.fallacies[FallacyType.BeggingTheQuestion], 2)
 
+    def test_is_acceptable(self):
+        premise = Premise(1)
+        arg1    = MagicMock()
+        arg2    = MagicMock()
+        arg3    = MagicMock()
+
+        rel         = MagicMock()
+        rel.relfrom = arg1
+        rel.relto   = premise
+
+        extension = MagicMock()
+        extension.arguments = [arg2]
+        self.assertTrue(premise.is_acceptable(extension, []))
+        self.assertFalse(premise.is_acceptable(extension, [rel]))
+
+        rel2         = MagicMock()
+        rel2.relfrom = arg2
+        rel2.relto   = arg1
+        self.assertTrue(premise.is_acceptable(extension, [rel, rel2]))
+
+        rel3         = MagicMock()
+        rel3.relfrom = arg3
+        rel3.relto   = arg1
+        self.assertFalse(premise.is_acceptable(extension, [rel, rel3]))
+
+
 if __name__ == '__main__':
     unittest.main()

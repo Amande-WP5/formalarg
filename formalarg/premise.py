@@ -51,3 +51,13 @@ class Premise:
 
     def fallacies_count(self):
         return sum(self.fallacies.values())
+
+    def is_acceptable(self, extension, relations):
+        attacking = [rel.relfrom for rel in relations if rel.relto == self]
+        if not attacking:
+            return True
+        for arg in attacking:
+            if not any(rel for rel in relations if rel.relto == arg and rel.relfrom in extension.arguments):
+                return False
+        return True
+
