@@ -3,8 +3,8 @@ class Graph:
         self.arguments = list()
         self.relations = list()
 
-    def add_arguments(*arguments):
+    def add_arguments(self, *arguments):
         self.arguments += arguments
 
-    def add_relations(*relations):
+    def add_relations(self, *relations):
         self.relations += relations
