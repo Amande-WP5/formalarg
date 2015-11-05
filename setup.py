@@ -18,6 +18,7 @@ setup(
     keywords = "argumentation library artificial intelligence",
     url = "http://packages.python.org/formalarg",
     packages=['formalarg', 'tests'],
+    install_requires=["graphviz"],
     long_description=read('README.md'),
     classifiers=[
         "Development Status :: 3 - Alpha",
