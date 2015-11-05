@@ -113,6 +113,21 @@ class TestPremise(unittest.TestCase):
         rel3.relto   = arg1
         self.assertFalse(premise.is_acceptable(extension, [rel, rel3]))
 
+    def test_is_present(self):
+        premise = Premise(1)
+        premise.probability = 1
+
+        for i in range(100):
+            self.assertTrue(premise.is_present())
+
+        premise.probability = 0.5
+        sum = 0.0
+        for i in range(100000):
+            if premise.is_present():
+                sum += 1
+        sum /= 100000.0
+        self.assertAlmostEquals(sum, 0.5, 2)
+
 
 if __name__ == '__main__':
     unittest.main()

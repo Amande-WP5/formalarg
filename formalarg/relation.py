@@ -1,4 +1,5 @@
 from enum import Enum
+from random import random
 
 
 class RelationType(Enum):
@@ -8,12 +9,13 @@ class RelationType(Enum):
 
 
 class Relation:
-    def __init__(self, relfrom, relto, type):
-        self.type       = type
-        self.relfrom    = relfrom
-        self.relto      = relto
-        self.supporters = 0
-        self.opponents  = 0
+    def __init__(self, relfrom, relto, type=RelationType.situation, probability=1):
+        self.type        = type
+        self.relfrom     = relfrom
+        self.relto       = relto
+        self.supporters  = 0
+        self.opponents   = 0
+        self.probability = 1
 
     def add_supporters(self, count):
         self.supporters += count
@@ -23,3 +25,8 @@ class Relation:
 
     def support_difference(self):
         return self.supporters - self.opponents
+
+    def is_present(self):
+        if self.relfrom.is_present() and self.relto.is_present():
+            return random() < self.probability
+        return False

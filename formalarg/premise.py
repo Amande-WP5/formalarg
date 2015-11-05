@@ -1,5 +1,6 @@
 from enum import Enum
 from collections import defaultdict
+from random import random
 
 from . import Relation, RelationType
 
@@ -29,12 +30,13 @@ class FallacyType(Enum):
     AppealToAuthority          = 22
 
 class Premise:
-    def __init__(self, id, text="", sources=None):
+    def __init__(self, id, text="", sources=None, probability=1):
         self.id        = id
         self.relations = list()
         self.text      = text
         self.sources   = sources or list()
         self.fallacies = defaultdict(int)
+        self.probability = probability
 
     def add_relations(self, *relations):
         self.relations += [Relation(self, par, reltype) for par, reltype in relations]
@@ -61,5 +63,9 @@ class Premise:
                 return False
         return True
 
+    def is_present(self):
+        return random() < self.probability
+
     def __str__(self):
         return str(id)
+
