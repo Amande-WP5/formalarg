@@ -6,6 +6,7 @@ addons:
     sources:
     - graphviz
 install:
+  - pip install graphviz
   - pip install codecov
   - pip install codacy-coverage
 after_success:
