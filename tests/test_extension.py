@@ -73,13 +73,10 @@ class TestExtension(unittest.TestCase):
     def test_is_admissible(self):
         arg1 = MagicMock()
         arg1.is_acceptable.return_value = True
-        arg1.__str__.return_value = "arg1"
         arg2 = MagicMock()
         arg2.is_acceptable.return_value = True
-        arg2.__str__.return_value = "arg2"
         arg3 = MagicMock()
         arg3.is_acceptable.return_value = True
-        arg3.__str__.return_value = "arg3"
         arg4 = MagicMock()
         arg5 = MagicMock()
         rel14 = MagicMock()
@@ -100,3 +97,43 @@ class TestExtension(unittest.TestCase):
 
         arg2.is_acceptable.return_value = False
         self.assertFalse(extension.is_admissible([rel14, rel52, rel54]))
+
+    def test_is_complete(self):
+        arg1 = MagicMock()
+        arg1.is_acceptable.return_value = True
+        arg2 = MagicMock()
+        arg2.is_acceptable.return_value = True
+        arg3 = MagicMock()
+        arg3.is_acceptable.return_value = True
+        arg4 = MagicMock()
+        arg4.is_acceptable.return_value = False
+
+        extension = Extension(arg1, arg2, arg3)
+        self.assertTrue(extension.is_complete([arg1, arg2, arg3, arg4], []))
+
+        arg4.is_acceptable.return_value = True
+        self.assertFalse(extension.is_complete([arg1, arg2, arg3, arg4], []))
+
+    def test_is_stable(self):
+        arg1 = MagicMock()
+        arg2 = MagicMock()
+        arg3 = MagicMock()
+        arg4 = MagicMock()
+        rel = MagicMock()
+        rel.relfrom = arg1
+        rel.relto = arg4
+
+        extension = Extension(arg1, arg2, arg3)
+        self.assertTrue(extension.is_stable([arg1, arg2, arg3, arg4], [rel]))
+
+        arg5 = MagicMock()
+        self.assertFalse(extension.is_stable([arg1, arg2, arg3, arg4, arg5], [rel]))
+        rel2 = MagicMock()
+        rel2.relfrom = arg1
+        rel2.relto = arg2
+        self.assertFalse(extension.is_stable([arg1, arg2, arg3, arg4], [rel, rel2]))
+
+        rel3 = MagicMock()
+        rel3.relfrom = arg4
+        rel3.relto = arg1
+        self.assertTrue(extension.is_stable([arg1, arg2, arg3, arg4], [rel, rel3]))
